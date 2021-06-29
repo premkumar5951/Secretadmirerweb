@@ -113,30 +113,66 @@ def sendmsg(request,Id):
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [us.email, ]
         send_mail( subject, message, email_from, recipient_list )
-        if UserProfile.objects.filter(user=request.user).exists():
-            pic=UserProfile.objects.filter(user=request.user)
-            return render(request,"thankyou.html",{"reciever":users[0],"pic":pic[0]})
+
+        if request.user.is_authenticated:
+            if UserProfile.objects.filter(user=request.user).exists() or UserProfile.objects.filter(user=users[0]).exists():
+                if UserProfile.objects.filter(user=request.user).exists() and UserProfile.objects.filter(user=users[0]).exists():
+                    pic=UserProfile.objects.filter(user=request.user)
+                    picr=UserProfile.objects.filter(user=users[0])
+                    return render(request,"thankyou.html",{"reciever":users[0],"pic":pic[0],"picr":picr[0]})
+                elif UserProfile.objects.filter(user=request.user).exists():
+                    pic=UserProfile.objects.filter(user=request.user)
+                    picr=UserProfile.objects.filter(user=users[0])
+                    return render(request,"thankyou.html",{"reciever":users[0],"pic":pic[0],"picr":picr})
+                else:
+                    pic=UserProfile.objects.filter(user=request.user)
+                    picr=UserProfile.objects.filter(user=users[0])
+                    return render(request,"thankyou.html",{"reciever":users[0],"pic":pic,"picr":picr[0]})
+                    
         else:
-            pic=UserProfile.objects.filter(user=request.user)
-            return render(request,"thankyou.html",{"reciever":users[0],"pic":pic})
+            if UserProfile.objects.filter(user=users[0]).exists():
+                picr=UserProfile.objects.filter(user=users[0])
+                return render(request,"thankyou.html",{"reciever":users[0],"picr":picr[0]})
+            else:
+                picr=UserProfile.objects.filter(user=users[0])
+                return render(request,"thankyou.html",{"reciever":users[0],"picr":picr})
         
     else:
-        if UserProfile.objects.filter(user=request.user).exists():
-            pic=UserProfile.objects.filter(user=request.user)
-            return render(request,"msgsent.html",{"reciever":users[0],"pic":pic[0]})
+        if request.user.is_authenticated:
+            if UserProfile.objects.filter(user=request.user).exists() or UserProfile.objects.filter(user=users[0]).exists():
+                if UserProfile.objects.filter(user=request.user).exists() and UserProfile.objects.filter(user=users[0]).exists():
+                    pic=UserProfile.objects.filter(user=request.user)
+                    picr=UserProfile.objects.filter(user=users[0])
+                    return render(request,"msgsent.html",{"reciever":users[0],"pic":pic[0],"picr":picr[0]})
+                elif UserProfile.objects.filter(user=request.user).exists():
+                    pic=UserProfile.objects.filter(user=request.user)
+                    picr=UserProfile.objects.filter(user=users[0])
+                    return render(request,"msgsent.html",{"reciever":users[0],"pic":pic[0],"picr":picr})
+                else:
+                    pic=UserProfile.objects.filter(user=request.user)
+                    picr=UserProfile.objects.filter(user=users[0])
+                    return render(request,"msgsent.html",{"reciever":users[0],"pic":pic,"picr":picr[0]})
+                    
         else:
-            pic=UserProfile.objects.filter(user=request.user)
-            return render(request,"msgsent.html",{"reciever":users[0],"pic":pic})
+            if UserProfile.objects.filter(user=users[0]).exists():
+                picr=UserProfile.objects.filter(user=users[0])
+                return render(request,"msgsent.html",{"reciever":users[0],"picr":picr[0]})
+            else:
+                picr=UserProfile.objects.filter(user=users[0])
+                return render(request,"msgsent.html",{"reciever":users[0],"picr":picr})
         
 
 
 def aboutus(request):
-     if UserProfile.objects.filter(user=request.user).exists():
-            pic=UserProfile.objects.filter(user=request.user)
-            return render(request,"about.html",{"pic":pic[0]})
+     if request.user.is_authenticated:
+         if UserProfile.objects.filter(user=request.user).exists():
+             pic=UserProfile.objects.filter(user=request.user)
+             return render(request,"about.html",{"pic":pic[0]})
+         else:
+             pic=UserProfile.objects.filter(user=request.user)
+             return render(request,"about.html",{"pic":pic})
      else:
-            pic=UserProfile.objects.filter(user=request.user)
-            return render(request,"about.html",{"pic":pic})
+            return render(request,"about.html")
 
 def feed(request):
     if request.method=="POST":
@@ -152,29 +188,39 @@ def feed(request):
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [email, ]
             send_mail( subject, message, email_from, recipient_list )
-
-            if UserProfile.objects.filter(user=request.user).exists():
-                 pic=UserProfile.objects.filter(user=request.user)
-                 return render(request,"thankfeed.html",{"pic":pic[0],"frm":frm})
+            if request.user.is_authenticated:
+                     if UserProfile.objects.filter(user=request.user).exists():
+                          pic=UserProfile.objects.filter(user=request.user)
+                          return render(request,"thankfeed.html",{"pic":pic[0],"frm":frm})
+                     else:
+                          pic=UserProfile.objects.filter(user=request.user)
+                          return render(request,"thankfeed.html",{"pic":pic,"frm":frm})
             else:
-                pic=UserProfile.objects.filter(user=request.user)
-                return render(request,"thankfeed.html",{"pic":pic,"frm":frm})
+                    return render(request,"thankfeed.html",{"frm":frm})
+                    
         else:
-                if UserProfile.objects.filter(user=request.user).exists():
-                    pic=UserProfile.objects.filter(user=request.user)
-                    return render(request,"feedback.html",{"pic":pic[0],"frm":frm})
-                else:
-                    pic=UserProfile.objects.filter(user=request.user)
-                    return render(request,"feedback.html",{"pic":pic,"frm":frm})     
+                 if request.user.is_authenticated:
+                     if UserProfile.objects.filter(user=request.user).exists():
+                          pic=UserProfile.objects.filter(user=request.user)
+                          return render(request,"feedback.html",{"pic":pic[0],"frm":frm})
+                     else:
+                          pic=UserProfile.objects.filter(user=request.user)
+                          return render(request,"feedback.html",{"pic":pic,"frm":frm})
+                 else:
+                    return render(request,"feedback.html",{"frm":frm}) 
     else:
-        frm=feedform()
-        if UserProfile.objects.filter(user=request.user).exists():
-                 pic=UserProfile.objects.filter(user=request.user)
-                 feed1=feedbackform.objects.all()
-                 length=len(feed1)
-                 return render(request,"feedback.html",{"pic":pic[0],"frm":frm,"feed":feed1,"len":length})
-        else:
-                pic=UserProfile.objects.filter(user=request.user)
-                feed1=feedbackform.objects.all()
-                length=len(feed1)
-                return render(request,"feedback.html",{"pic":pic,"frm":frm,"feed":feed1,"len":length})
+             if request.user.is_authenticated:
+                    frm=feedform()
+                    if UserProfile.objects.filter(user=request.user).exists():
+                             pic=UserProfile.objects.filter(user=request.user)
+                             feed1=feedbackform.objects.all()
+                             length=len(feed1)
+                             return render(request,"feedback.html",{"pic":pic[0],"frm":frm,"feed":feed1,"len":length})
+                    else:
+                            pic=UserProfile.objects.filter(user=request.user)
+                            feed1=feedbackform.objects.all()
+                            length=len(feed1)
+                            return render(request,"feedback.html",{"pic":pic,"frm":frm,"feed":feed1,"len":length})
+             else:
+                 frm=feedform()
+                 return render(request,"feedback.html",{"frm":frm})

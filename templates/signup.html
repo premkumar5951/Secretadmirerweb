@@ -1,0 +1,238 @@
+{% extends "index.html" %}
+{%block title%}SignUp{%endblock title%}
+{%block css%}
+<style>
+     *{
+              margin:0px;
+              padding:0px;
+              box-sizing: border-box;
+          }
+    .container {
+        max-width: 700px;
+    }
+
+    small {
+        color: rgb(255, 115, 0);
+        font-weight: 700;
+    }
+
+    .innerbox {
+     
+        padding: 2em;
+       
+    }
+
+    .form-control {
+        border: 2px rgb(192, 188, 188) solid;
+        outline: none;
+        border-top-right-radius: 1em;
+        border-bottom-right-radius: 1em;
+        
+    }
+    
+ .form-control:focus{
+    border:none;
+    outline: 0;
+    box-shadow: 0 0 3px 2px rgba(97, 97, 97, 0.322);
+ }
+    .user{
+        display: flex;
+
+    }
+    .icon{
+        background: yellow;
+        border-bottom-left-radius: 8px;
+        border-top-left-radius: 9px;
+        border-radius: 5px white solid;
+        position: relative;
+        width:70px;
+        height:100%;
+        left:5px
+    }
+    .btn1{
+        width:100px;
+        height:40px;
+        margin-left:5px ;
+        border-radius: 1em;
+        box-shadow: inset 0px 0px 30px  rgb(75, 74, 74);
+    }
+    body{
+        background: rgb(220, 222, 223);
+       
+        height: 100vh;
+    }
+    .head{
+        padding: 0px;
+    }
+    .google_logo{
+        display: flex;
+        height:55px;
+        padding:9px;
+        width:40%;
+       background: rgb(208 51 12);
+       cursor:pointer;
+       margin:0px auto;
+    }
+    @media(max-width:660px){
+        .google_logo{
+            width:100%;
+        }
+    }
+    @media(max-width:300px){
+        .google_logo{
+            height:70px
+        }
+       
+    }
+    .login_text{
+font-size: 19px;
+    }
+    .content-container{
+        display:flex;
+    }
+   .container1{
+max-width: 1200px;
+width:95%;
+margin: 0px auto;
+padding: 1em;
+
+   }
+   @media (max-width:630px) {
+    .content-container{
+        display:flex;
+        flex-direction: column;
+    }
+    .content-container div{
+        width:100%;
+    }
+   }
+   .icon1{
+       display: flex;
+       justify-content: center;
+   }
+</style>
+{%endblock css%}
+{% load socialaccount %}
+{%block body%}
+{%load widget_tweaks %}
+<div class="container my-5">
+<div class="innerbox">
+    <h1 style="color:rgb(17, 17, 17) ;">Account Signup</h1>
+    <hr style="color:rgb(41, 39, 39) ;">
+<form action="/signup/" method="POST" novalidate class="row g-3" >
+{% csrf_token %}
+{%if form.non_field_errors%}
+{%for error in form.non_firld_errors%}
+<small>{{error}}</small>
+{%endfor%}
+
+{%endif%}
+   
+    <div class="col-12">
+
+{{form.username}}
+
+    <small>{{form.username.errors|striptags}}</small>
+  </div>
+  <div class="col-md-6">
+
+     {% if form.first_name.errors %}
+{%render_field form.first_name class+="is-invalid"%}
+{%else%}
+{{form.first_name}}
+    {%endif%}
+    <small>{{form.first_name.errors|striptags}}</small>
+  </div>
+  <div class="col-md-6">
+ 
+     {% if form.last_name.errors %}
+{%render_field form.last_name class+="is-invalid"%}
+{%else%}
+{{form.last_name}}
+    {%endif%}
+   <small>{{form.last_name.errors|striptags}}</small>
+  </div>
+  <div class="col-12">
+
+     {% if form.email.errors %}
+{%render_field form.email class+="is-invalid"%}
+{%else%}
+{{form.email}}
+    {%endif%}
+   <small>{{form.email.errors|striptags}}</small>
+  </div>
+ 
+  <div class="col-md-6">
+       {% if form.password1.errors %}
+{%render_field form.password1 class+="is-invalid"%}
+{%else%}
+{{form.password1}}
+    {%endif%}
+    <small>{{form.password1.errors|striptags}}</small>
+  </div>
+  <div class="col-md-6">
+ 
+       {% if form.password2.errors %}
+{%render_field form.password2 class+="is-invalid"%}
+{%else%}
+{{form.password2}}
+    {%endif%}
+    <small>{{form.password2.errors|striptags}}</small>
+  </div>
+    <div class="my-3">
+           <button type="submit" class="btn btn-primary btn1" value="Sign up">Sign Up</button><a href="/" class="mx-3">Already have a account? Login</a>
+    </div>
+</form>
+    <div class="text-center">
+        <h2>OR</h2>
+    </div>
+    <a href="{% provider_login_url 'google' %}" class="mx-3"> 
+        <div class="google_logo text-light">
+         <div> <i class="fab fa-google  fs-1 glogo"></i></div>  
+         <div><p class="mx-2 login_text"> SignUp with Google</p></div>
+        </div></a>
+    </div>
+</div>
+<div class="  p-t-md" style="background-color: rgba(16, 187, 179, 0.11); font-size: 16px;">
+    <div class="container1 content-container my-4">
+    <div class="col-sm-3 mx-2 p-2">
+    <p><strong>1. Create your personal feedback URL. <a href="/profile/" title="New Account">Here</a></strong></p>
+    <p>People will write anonymous and honest opinions about you on that URL.</p>
+    </div>
+    <div class="col-sm-3 mx-2 p-2">
+    <p><strong>2.Share the URL through Instagram, Twitter, Facebook etc. </strong></p>
+    <p>Share the URL through Instagram, Twitter, Facebook etc, to recieve more feedbacks.</p>
+    </div>
+    <div class="col-sm-3 mx-2 p-2">
+    <p><strong>3. Read what people think about you.</strong></p>
+    <p>The feedback you receive is private - only you can see it. </p>
+    </div>
+    <div class="col-sm-3mx-2 p-2">
+    <p><strong>4. Publish your favorite feedbacks.</strong></p>
+    <p>Share your favourite messages on social medias! </p>
+    </div>
+    </div>
+    </div>
+
+    <div class="container-fluid bg-dark text-center text-light py-2">
+        <div class="icon1 ">
+           <a href="https://github.com/premkumar5951" class="text-light" target="_blank"> <div > 
+                <i class="fab fa-github fa-2x mx-1"></i>
+            </div></a>
+            <a href="https://www.linkedin.com/in/prem-kumar-0520711a7" class="text-light" target="_blank"><div> 
+                <i class="fab fa-linkedin-in fa-2x mx-1"></i>
+            </div></a>
+            <a href="https://instagram.com/_incredible_prem_?igshid=1n5e7a0bk5owt" class="text-light" target="_blank"><div> 
+                <i class="fab fa-instagram fa-2x mx-1" ></i>
+            </div></a>
+          
+        </div>
+        <div>
+            <p>Contact us at: <b>premofdbapatna@gmail.com</b></p>
+        </div>
+    </div>
+
+{%endblock body%}
+
+
+

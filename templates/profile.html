@@ -1,0 +1,501 @@
+{% extends "index.html" %}
+{%block title%}View Messages{%endblock title%}
+{% load static %}
+{% load social_share %}
+{%block css%}
+<style>
+  .image {
+    height: 300px;
+
+  }
+
+  .prpic {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .container {
+    position: relative;
+    max-width: 1000px;
+  }
+
+  .image img {
+    object-fit: cover;
+    border-top-right-radius: 1em;
+    border-top-left-radius: 1em;
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.411);
+    object-position: center;
+  }
+
+  .message {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5em;
+    justify-content: space-between;
+    padding: 2em;
+  }
+
+  .input-group-text {
+    cursor: pointer;
+  }
+
+  .instruct p {
+    color: blue;
+    font-size: 18px;
+  }
+
+  .erpic {
+    height: 400px;
+
+  }
+
+  .erimg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .allmsg {
+    border: rgba(136, 134, 134, 0.705) 1px solid;
+    border-radius: 10px;
+  }
+
+  .btnpr {
+    background: rgba(0, 0, 0, 0.555);
+    border: none;
+    outline: none;
+    font-size: 10px;
+    position: relative;
+    transform: translateY(-210%);
+    left: 75px;
+  }
+
+  .btnpr:hover {
+    background: rgba(0, 0, 0, 0.815);
+  }
+
+  .btn-check:focus+.btn-primary,
+  .btn-primary:focus {
+    color: #fff;
+    background-color: #0000008a;
+    border: none;
+    box-shadow: none;
+  }
+
+  .btn-check:focus+.btn,
+  .btn:focus {
+    outline: 0;
+    box-shadow: none;
+  }
+
+  .userimg1 {
+    height: 150px;
+    width: 150px;
+  }
+
+  .user_name {
+    position: relative;
+    transform: translateY(-50%);
+  }
+
+  .p-5 {
+    padding: 1rem !important;
+  }
+
+  .linkinput {
+    font-size: small;
+  }
+
+  .blkmain {
+    position: relative;
+  }
+
+  .date {
+    position: absolute;
+    text-align: right;
+    right: 10px;
+    bottom: 0px;
+    font-size: 11px;
+    color: rgb(212, 209, 209);
+  }
+.crossme{
+  position: absolute;
+  right:5px;
+  top:5px;
+  cursor: pointer;
+
+}
+  .content-container {
+    display: flex;
+  }
+
+  .container1 {
+    max-width: 1200px;
+    width: 95%;
+    margin: 0px auto;
+    padding: 1em;
+
+  }
+
+  @media (max-width:630px) {
+    .content-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-container div {
+      width: 100%;
+    }
+  }
+
+  .icon1 {
+    display: flex;
+    justify-content: center;
+  }
+
+  .content-container {
+    display: flex;
+  }
+
+  .container1 {
+    max-width: 1200px;
+    width: 95%;
+    margin: 0px auto;
+    padding: 1em;
+
+  }
+
+  @media (max-width:630px) {
+    .content-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-container div {
+      width: 100%;
+    }
+  }
+
+  .icon1 {
+    display: flex;
+    justify-content: center;
+  }
+ 
+</style>
+{% endblock %}
+{%block body %}
+<div class="container">
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST" enctype="multipart/form-data">
+            {%csrf_token%}
+            <div class="mb-3">
+              <label for="formFileSm" class="form-label"><b>Select a profile pic</b></label>
+              <input class="form-control form-control-sm" id="formFileSm" type="file" name="profilepic" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn1 btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn1 btn-primary">Save changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div><div class="container">
+  <div class="modal fade" id="dltmsg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST" enctype="multipart/form-data">
+            {%csrf_token%}
+            <div>
+              <h4 id="dlthead"><i class="fas fa-exclamation-triangle " ></i> Are you sure you want to delete this?</h4>
+               <p id="dltpara" class="p-3 mx-2 text-danger"></i></p>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn1 btn-success " id="closebtn" data-bs-dismiss="modal">Cancle</button>
+          <button type="button" id="deletebtn" class="btn btn1 btn-danger " onclick="modal(event)">Delete</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="container">
+    <div class="modal fade" id="coverpic" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <img src="{% static 'images/cover.jpg' %}" alt="" width="100%">
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="modal fade" id="propic" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            {% if pic.picture %}
+            <div>
+              <img src="/media/{{pic.picture}}" alt="" width="100%" >
+            </div>
+            {%else%}
+            <div>
+              <img src="/media/user.png" alt="" width="100%" >
+            </div>
+            {%endif%}
+          </div>
+            <div class="modal-footer">
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="image">
+        <img src="{% static 'images/cover.jpg' %}" alt="coverpic" width="100%" height="100%" type="button"
+          data-bs-toggle="modal" data-bs-target="#coverpic">
+      </div>
+      <div class="prpic text-center">
+        {% if pic.picture %}
+        <div>
+          <img src="/media/{{pic.picture}}" alt="" class="userimg userimg1" type="button" data-bs-toggle="modal"
+            data-bs-target="#propic">
+        </div>
+        {%else%}
+        <div>
+          <img src="/media/user.png" alt="" class="userimg userimg1" type="button" data-bs-toggle="modal"
+            data-bs-target="#propic">
+        </div>
+        {%endif%}
+        <button type="button" class="btn btn-primary btnpr" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Edit pic
+        </button>
+        <div class="user_name">
+          <p class="text-center  fs-5 fw-bold">{{user.get_full_name}}</p>
+        </div>
+      </div>
+      <div class="message text-center">
+        <div class="tmsg text-success" id="tmsg">
+          <hr>
+          <div><h3>Total Messages <i class="fas fa-mail-bulk"></i></h3><br></div>
+          <div class="len"></div><h1>{{len}}</h1>
+          
+          
+          <hr>
+        </div>
+      </div>
+      <div class="input-group mb-3 link">
+        <input type="text" class="form-control linkinput" id="copyinput" placeholder="Recipient's username"
+          value="http://www.secretadmirer.com:8000/user/810384{{user.id}}095757/$msgs/"
+          aria-label="Recipient's username" aria-describedby="basic-addon2" readonly>
+        <span class="input-group-text" onclick="Copy()" id="basic-addon2"><b><span id="copytxt">Copy</span></b><i
+            class="fas fa-clipboard fa-2x mx-2"></i></span>
+      </div>
+
+      <div class="instruct text-center">
+        <h3 class="text-center">To Start Recieving Messages</h3>
+        <p>Share the above link on the social sites</p>
+        <p>Recommended To Share On Whatsapp, Facebook, Instagram, Twitter.</p>
+      </div>
+
+      <div class="allmsg p-3 my-4">
+        <h2 class="mx-2">Messages({{len}})<i class="fas mx-2 fa-comments fa"></i></h2>
+        {% if len != 0 %}
+        {% for i in msgs %}
+        <div class="col-md-12 m-2 my-4" id="div{{i.id}}">
+          <div class="h-100 p-5 text-white bg-dark rounded-3 blkmain">
+            <p style="font-size: 15px;" id="msg{{i.id}}">{{i.message}}</p>
+            <div class="crossme" id="cross{{i.id}}" onclick="cross(event)"  data-bs-toggle="modal"
+            data-bs-target="#dltmsg"><i class="fas fa-trash mx-3" id="cross{{i.id}}" ></i></div>
+            <div class="date">
+              <p>{{i.date}}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        {%else%}
+        <div class="erpic">
+          <img src="{% static 'images/svg.svg' %}" alt="" class="erimg">
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="  p-t-md" style="background-color: rgba(16, 187, 179, 0.11); font-size: 16px;">
+      <div class="container1 content-container my-4">
+        <div class="col-sm-3 mx-2 p-2">
+          <p><strong>1. Create your personal feedback URL. <a href="#tmsg" title="New Account">Here</a></strong></p>
+          <p>People will write anonymous and honest opinions about you on that URL.</p>
+        </div>
+        <div class="col-sm-3 mx-2 p-2">
+          <p><strong>2.Share the URL through Instagram, Twitter, Facebook etc. </strong></p>
+          <p>Share the URL through Instagram, Twitter, Facebook etc, to recieve more feedbacks.</p>
+        </div>
+        <div class="col-sm-3 mx-2 p-2">
+          <p><strong>3. Read what people think about you.</strong></p>
+          <p>The feedback you receive is private - only you can see it. </p>
+        </div>
+        <div class="col-sm-3mx-2 p-2">
+          <p><strong>4. Publish your favorite feedbacks.</strong></p>
+          <p>Share your favourite messages on social medias! </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid bg-dark text-center text-light py-2">
+      <div class="icon1 ">
+        <a href="https://github.com/premkumar5951" class="text-light" target="_blank">
+          <div>
+            <i class="fab fa-github fa-2x mx-1"></i>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/prem-kumar-0520711a7" class="text-light" target="_blank">
+          <div>
+            <i class="fab fa-linkedin-in fa-2x mx-1"></i>
+          </div>
+        </a>
+        <a href="https://instagram.com/_incredible_prem_?igshid=1n5e7a0bk5owt" class="text-light" target="_blank">
+          <div>
+            <i class="fab fa-instagram fa-2x mx-1"></i>
+          </div>
+        </a>
+
+      </div>
+      <div>
+        <p>Contact us at: <b>premofdbapatna@gmail.com</b></p>
+      </div>
+    </div>
+    {% endblock body%}
+
+
+
+
+
+
+
+
+
+
+
+
+    {% block js%}
+    <script type="text/javascript">
+function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  const csrftoken = getCookie('csrftoken');
+      function Copy() {
+        var copyText = document.getElementById('copyinput')
+        copyText.select();
+        document.execCommand('copy')
+        document.getElementById("copytxt").innerHTML = "Copied"
+      }
+      let ids=""
+      function cross(event)
+      {
+        ids=event.target.id.slice(5)
+        document.getElementById("deletebtn").style.display="block"
+        document.getElementById("closebtn").innerHTML="Cancle"
+        document.getElementById("dlthead").innerHTML=`<i class="fas fa-exclamation-triangle " ></i> Are you sure you want to delete this?`
+        str=document.getElementById(`msg${ids}`).innerHTML
+        document.getElementById("dltpara").innerHTML=str.slice(0,100)+"....."
+      }
+      
+
+      function modal(event)
+      {
+        fetch("",
+{
+    method:"POST",
+    credentials:"same-origin",
+    headers:{
+        "X-CSRFToken":csrftoken,
+        "Accept":"application/json",
+        "X-Requested-with":"XMLHttpRequest"
+    },
+    
+    body:JSON.stringify({'post-data': ids})
+   
+
+}).then(response=>
+{
+    return response.json()
+}).then(mydata=>
+{
+    document.getElementById("dlthead").innerHTML=` Deleted <i class="fas fa-check-double"></i>`
+    document.getElementById(`div${ids}`).style.display="none"
+    document.getElementById("deletebtn").style.display="none"
+    document.getElementById("closebtn").innerHTML="Done"
+
+
+
+
+  
+    
+  });
+   
+}
+  
+  
+  
+   
+
+
+
+
+
+
+      
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+      crossorigin="anonymous"></script>
+
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+      integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+      integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+      crossorigin="anonymous"></script>
+    
+
+
+    {% endblock js%}

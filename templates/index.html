@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/0e767e0926.js" crossorigin="anonymous"></script>
+    <title>{%block title%}{%endblock title%}</title>
+      <style>
+          *{
+              margin:0px;
+              padding:0px;
+              box-sizing: border-box;
+          }
+    .container {
+        max-width: 700px;
+    }
+
+    small {
+        color: rgb(255, 115, 0);
+        font-weight: 700;
+    }
+
+    .innerbox {
+     
+        padding: 2em;
+       
+    }
+
+    .form-control {
+        border: 2px rgb(192, 188, 188) solid;
+        outline: none;
+        border-top-right-radius: 1em;
+        border-bottom-right-radius: 1em;
+        
+    }
+    
+ .form-control:focus{
+    border:none;
+    outline: 0;
+    box-shadow: 0 0 3px 2px rgba(97, 97, 97, 0.322);
+ }
+    .user{
+        display: flex;
+
+    }
+    .icon{
+        background: yellow;
+        border-bottom-left-radius: 8px;
+        border-top-left-radius: 9px;
+        border-radius: 5px white solid;
+        position: relative;
+        width:70px;
+        height:100%;
+        left:5px
+    }
+    .btn1{
+        width:100px;
+        height:40px;
+        margin-left:5px ;
+        border-radius: 1em;
+        box-shadow: inset 0px 0px 30px  rgb(75, 74, 74);
+    }
+    body{
+        background: rgb(220, 222, 223);
+       
+        height: 100vh;
+    }
+    .head1{
+        padding: 0px;
+    }
+    .google_logo{
+        display: flex;
+        height:55px;
+        padding:9px;
+        width:40%;
+       background: rgb(208 51 12);
+       cursor:pointer;
+       margin:1em auto;
+    }
+    @media(max-width:660px){
+        .google_logo{
+            width:100%;
+        }
+    }
+    @media(max-width:300px){
+        .google_logo{
+            height:70px
+        }
+       
+    }
+    .userimg {
+        border-radius: 50%;
+    }
+    a{
+        text-decoration: none;
+      
+    }
+    .ali{
+        color:rgb(236, 234, 234);
+    }
+    .ali:hover{
+        color:rgb(10, 250, 238);
+    }
+    .dropdown-toggle{
+        background:none;
+        border:none;
+    }
+    .dropdown-toggle:hover{
+        background: none;
+    }
+    .btn-check:active+.btn-success, .btn-check:checked+.btn-success, .btn-success.active, .btn-success:active, .show>.btn-success.dropdown-toggle {
+    color: #fff;
+    background:none;
+    outline: none;
+    border: none;
+}
+.btn-check:focus+.btn-success, .btn-success:focus {
+    color: #fff;
+    background:none;
+    border:none;
+    box-shadow: none;
+}
+.btn-check:active+.btn-success:focus, .btn-check:checked+.btn-success:focus, .btn-success.active:focus, .btn-success:active:focus, .show>.btn-success.dropdown-toggle:focus {
+    box-shadow: none;
+}
+.navimg{
+    box-shadow: 0 0 5px 3px rgba(255, 255, 255, 0.445);
+}
+.content-container{
+        display:flex;
+    }
+   .container1{
+max-width: 1200px;
+width:95%;
+margin: 0px auto;
+padding: 1em;
+
+   }
+   @media (max-width:630px) {
+    .content-container{
+        display:flex;
+        flex-direction: column;
+    }
+    .content-container div{
+        width:100%;
+    }
+   }
+   .icon1{
+       display: flex;
+       justify-content: center;
+   }
+   @media(max-width:420px){
+    .head1 ul{
+        margin-left: 30px;
+    }
+}
+</style>
+{%block css%}
+{% endblock css%}
+  </head>
+  <body>
+      
+    {% load static %}
+    {% load socialaccount %}
+    <div class="container-fluid head1">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom bg-dark text-light">
+          <a href="/about/" class="d-flex align-items-center mx-4 mb-3 mb-md-0 me-md-auto text-light text-decoration-none">
+            <img src="{% static 'images/letter.png' %} " alt="letter pic" width="50px" height="50px">
+            <span class="fs-3 mx-2">Secret Admirer</span>
+          </a>
+    
+          <ul class="nav nav-pills">
+            {% if user.is_authenticated %}
+            <div class="btn-group">
+                <div>
+                    {% if pic.picture %}
+                    <a href="/profile/"> <img class="p-1  userimg navimg" src="/media/{{pic.picture}}" alt="profile pic" height="45px" width="45px"></a>
+                    {%else%}
+                    <a href="/profile/"> <img class="p-1  userimg navimg" src="/media/user.png" alt="profile pic" height="45px" width="45px"></a>
+                    {%endif%}
+                </div>
+                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split  my-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 <span class="mx-2">{{user.get_full_name}}</span> 
+                </button>
+                <div class="dropdown-menu ">
+                  <a class="dropdown-item " href="/profile/">Messages</a>
+                  <a class="dropdown-item" href="/about/">About</a>
+                  <hr>
+                  <a class="dropdown-item" href="/logout/">Logout</a>
+                  
+              
+                </div>
+              
+              </div>
+            <li class="nav-item"><a href="/feedback/" class="nav-link ali">Feedback</a></li>
+            <li class="nav-item"><a href="/about/" class="nav-link ali">AboutUs</a></li>
+            
+            {%else%}
+            <li class="nav-item"><a href="/signup/" class="nav-link active mx-2" aria-current="page">Sign Up</a></li>
+             <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Log In</a></li>
+             <li class="nav-item"><a href="about/" class="nav-link ali">AboutUs</a></li>
+             {% endif %}
+          </ul>
+        </header>
+      </div>
+      
+      {% block body%}
+
+{%load widget_tweaks%}
+<div class="container my-5">
+    <div class="innerbox">
+        <h1 style="color:rgb(17, 17, 17) ;">Account Login</h1>
+<hr style="color:rgb(41, 39, 39) ;">
+        <form action="/" method="POST" novalidate>
+            {%csrf_token%}
+            {%if forml.non_field_errors%}
+            {%for error in forml.non_field_errors%}
+            <small  >{{error}}</small>
+            {%endfor%}
+
+            {%endif%}
+            <div class="mb-3 mt-2 ">
+                <div class="user">
+                    <i class="fas fa-user fa-2x p-2 icon"></i> 
+                    {%render_field forml.username class="form-control" placeholder="username"%}
+                </div>
+                <small>{{forml.username.errors|striptags}}</small>
+            </div>
+            <div class=" my-3">
+                <div class="user">
+                <i class="fas fa-key fa-2x p-2 icon"></i>
+                {%render_field forml.password class="form-control" placeholder="password"%}
+            </div>
+                <small>{{forml.password.errors|striptags}}</small>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary btn1">Login</button> <a href="signup/" class="mx-3">New User? Signup</a>
+             <a href="{% provider_login_url 'google' %}" class="mx-3"></a> 
+            </form>
+            <div class="text-center">
+                <h2>OR</h2>
+                <a href="{% provider_login_url 'google' %}" class="mx-3"> 
+            <div class="google_logo text-light">
+             <div> <i class="fab fa-google  fs-1 glogo"></i></div>  
+             <div><p class="fs-5 mx-2 login_text"> Login with Google</p></div>
+            </div></a>
+
+        
+    </div>
+    </div>
+    </div>
+    
+    <div class="  p-t-md" style="background-color: rgba(16, 187, 179, 0.11); font-size: 16px;">
+        <div class="container1 content-container my-4">
+        <div class="col-sm-3 mx-2 p-2">
+        <p><strong>1. Create your personal feedback URL. <a href="/profile/" title="New Account">Here</a></strong></p>
+        <p>People will write anonymous and honest opinions about you on that URL.</p>
+        </div>
+        <div class="col-sm-3 mx-2 p-2">
+        <p><strong>2.Share the URL through Instagram, Twitter, Facebook etc. </strong></p>
+        <p>Share the URL through Instagram, Twitter, Facebook etc, to recieve more feedbacks.</p>
+        </div>
+        <div class="col-sm-3 mx-2 p-2">
+        <p><strong>3. Read what people think about you.</strong></p>
+        <p>The feedback you receive is private - only you can see it. </p>
+        </div>
+        <div class="col-sm-3mx-2 p-2">
+        <p><strong>4. Publish your favorite feedbacks.</strong></p>
+        <p>Share your favourite messages on social medias! </p>
+        </div>
+        </div>
+        </div>
+        <div class="container-fluid bg-dark text-center text-light py-2">
+            <div class="icon1 ">
+               <a href="https://github.com/premkumar5951" class="text-light" target="_blank"> <div > 
+                    <i class="fab fa-github fa-2x mx-1"></i>
+                </div></a>
+                <a href="https://www.linkedin.com/in/prem-kumar-0520711a7" class="text-light" target="_blank"><div> 
+                    <i class="fab fa-linkedin-in fa-2x mx-1"></i>
+                </div></a>
+                <a href="https://instagram.com/_incredible_prem_?igshid=1n5e7a0bk5owt" target="_blank" class="text-light"><div> 
+                    <i class="fab fa-instagram fa-2x mx-1" ></i>
+                </div></a>
+              
+            </div>
+            <div>
+                <p>Contact us at: <b>premofdbapatna@gmail.com</b></p>
+            </div>
+        </div>
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+      crossorigin="anonymous"></script>
+    
+  
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+  
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+      integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+      integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+      crossorigin="anonymous"></script>
+    {%block js%}
+   
+  {% endblock js%}
+  </body>
+  
+</html>

@@ -1,0 +1,161 @@
+{% extends "index.html"%}
+{%block title%} 
+aboutUs
+{% endblock title %}
+{% block css%}
+<style>
+    .content-container{
+        display:flex;
+    }
+   .container1{
+max-width: 1200px;
+width:95%;
+margin: 0px auto;
+padding: 1em;
+
+   }
+   @media (max-width:630px) {
+    .content-container{
+        display:flex;
+        flex-direction: column;
+    }
+    .content-container div{
+        width:100%;
+    }
+   }
+   .icon1{
+       display: flex;
+       justify-content: center;
+   }
+
+.innerbox{
+    display: flex;
+    background: rgba(35, 240, 189, 0.116);
+    justify-content: space-between;
+}
+.firstbox{
+    display: flex;
+    flex-direction: column;
+    width:60%;
+}
+.upper{
+    padding: 10px;
+}
+.lower{
+    display: flex;
+    
+}
+.secondbox{
+    
+}
+.lower1, .lower2{
+width:50%;
+padding: 10px;
+}
+@media(max-width:770px){
+.innerbox{
+    flex-direction: column;
+}
+.firstbox{
+    width:100%;
+}
+}
+@media(max-width:510px){
+.lower{
+    flex-direction: column;
+}
+.lower1,.lower2{
+    width: 100%;
+}
+}
+</style>
+{%endblock css%}
+{%block body%}
+<div class="container-fluid">
+    <div class="innerbox">
+        <div class="firstbox">
+            <div class="upper">
+                <h3>Are you too shy to face people? <i class="far fa-grin-beam"></i></h3>
+                <p>Get honest feedback from your coworkers, friends and families. Know what your friends have been hiding from,or if they were shy enough to tell you.</p>
+                <p>Just share your customised link and start recieving feebacks. <b>Keep Sharing :)</b></p>
+            </div>
+            <div class="lower">
+                <div class="lower1">
+                    <h3>Improve your bond <i class="fas fa-handshake mx-1"></i></h3>
+                    <p>let your friends, coworkers be honest with you. It helps you to know people and what they really think of you. Give it a try and let others express what they feel for you :)
+                    </p>
+                </div>
+                <div class="lower2">
+                    <h3>Privacy <i class="fas fa-user-lock "></i></h3>
+                    <p>Every feedback is secured, private and is only accessable to you. We chose to hide the identity of the person who wrote the feedback, for their safety :)</p>
+                </div>
+            </div>
+            
+        </div>
+        <div class="secondbox">
+            <div class="container-fluid bg-dark text-center text-light py-2">
+                <div>
+                    <h3>Follow Us On:-</h3>
+                </div>
+                <div class="icon1 my-2">
+                   <a href="https://github.com/premkumar5951" class="text-light" target="_blank"> <div > 
+                        <i class="fab fa-github fa-2x mx-1"></i>
+                    </div></a>
+                    <a href="https://www.linkedin.com/in/prem-kumar-0520711a7" class="text-light" target="_blank"><div> 
+                        <i class="fab fa-linkedin-in fa-2x mx-1"></i>
+                    </div></a>
+                    <a href="https://instagram.com/_incredible_prem_?igshid=1n5e7a0bk5owt" class="text-light" target="_blank"><div> 
+                        <i class="fab fa-instagram fa-2x mx-1" ></i>
+                    </div></a>
+                  
+                </div>
+                <div>
+                    <h4>OR</h4>
+                    <p>Contact us at: <b class="text-primary">premofdbapatna@gmail.com</b></p>
+                    <p>Please leave your valuable <a href="#">Feedback.</a></p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+</div>
+<div class="  p-t-md" style="background-color: rgba(16, 187, 179, 0.11); font-size: 16px;">
+    <div class="container1 content-container my-4">
+    <div class="col-sm-3 mx-2 p-2">
+    <p><strong>1. Create your personal feedback URL. <a href="/profile/" title="New Account">Here</a></strong></p>
+    <p>People will write anonymous and honest opinions about you on that URL.</p>
+    </div>
+    <div class="col-sm-3 mx-2 p-2">
+    <p><strong>2.Share the URL through Instagram, Twitter, Facebook etc. </strong></p>
+    <p>Share the URL through Instagram, Twitter, Facebook etc, to recieve more feedbacks.</p>
+    </div>
+    <div class="col-sm-3 mx-2 p-2">
+    <p><strong>3. Read what people think about you.</strong></p>
+    <p>The feedback you receive is private - only you can see it. </p>
+    </div>
+    <div class="col-sm-3mx-2 p-2">
+    <p><strong>4. Publish your favorite feedbacks.</strong></p>
+    <p>Share your favourite messages on social medias! </p>
+    </div>
+    </div>
+    </div>
+
+    <div class="container-fluid bg-dark text-center text-light py-2">
+        <div class="icon1 ">
+           <a href="https://github.com/premkumar5951" class="text-light" target="_blank"> <div > 
+                <i class="fab fa-github fa-2x mx-1"></i>
+            </div></a>
+            <a href="https://www.linkedin.com/in/prem-kumar-0520711a7" class="text-light" target="_blank"><div> 
+                <i class="fab fa-linkedin-in fa-2x mx-1"></i>
+            </div></a>
+            <a href="https://instagram.com/_incredible_prem_?igshid=1n5e7a0bk5owt" class="text-light" target="_blank"><div> 
+                <i class="fab fa-instagram fa-2x mx-1" ></i>
+            </div></a>
+          
+        </div>
+        <div>
+            <p>Contact us at: <b>premofdbapatna@gmail.com</b></p>
+        </div>
+    </div>
+{%endblock body%}

@@ -1,0 +1,8 @@
+django==3.0.7
+django-allauth
+social-auth-app-django
+social-auth-core
+django-widget-tweaks
+Pillow
+django-ckeditor
+pip install django-social-sharedjango-social-share

@@ -1,0 +1,115 @@
+{% extends "index.html"%}
+{%block title%} 
+Send message
+{% endblock title %}
+{% block css%}
+<style>
+.container{
+    max-width:1000px;
+}
+.txt_area{
+    border-radius: 1em;
+    border: 2px rgba(123, 121, 124, 0.39) groove;
+    resize: none;
+}
+.userimg{
+    box-shadow:0 0 5px 3px rgba(75, 74, 74, 0.651) ;
+}
+.userimg1{
+  height:150px;
+  width:150px;
+}
+.content-container{
+        display:flex;
+    }
+   .container1{
+max-width: 1200px;
+width:95%;
+margin: 0px auto;
+padding: 1em;
+
+   }
+   @media (max-width:630px) {
+    .content-container{
+        display:flex;
+        flex-direction: column;
+    }
+    .content-container div{
+        width:100%;
+    }
+   }
+   .icon1{
+       display: flex;
+       justify-content: center;
+   }
+</style>
+{%endblock css%}
+{%block body%}
+<div class=" container  my-4">
+    <div class="prpic text-center">
+      {% if pic.picture %}
+      <div>
+    <img src="/media/{{pic.picture}}" alt="" class="userimg userimg1">
+      </div>
+      {%else%}
+      <div>
+        <img src="/media/user.png" alt="" class="userimg userimg1">
+          </div>
+          {%endif%}
+        <div>
+          <p class="text-center my-2 fs-5 fw-bold">{{reciever.get_full_name}}</p>
+        </div>
+      </div>
+<div class="p-4 my-4">
+<h4 class="my-3 text-center"><i class="fas fa-pencil-alt mx-2"></i>Type a productive message for {{reciever.first_name}}, Be Honest :) </h4>
+<div class="mb-3">
+    <form action="" method="POST">
+        {%csrf_token%}
+    <textarea class="form-control txt_area" id="exampleFormControlTextarea1" name="txtarea" rows="8" placeholder="Write your message here..."></textarea>
+    <div class="m-4 text-center">
+    <button type="submit" class="btn btn-primary btn1"> Send <i class="fas fa-paper-plane mx-2"></i></button>
+    </div>
+</form>
+  </div>
+
+</div>
+</div>
+<div class="  p-t-md" style="background-color: rgba(16, 187, 179, 0.11); font-size: 16px;">
+  <div class="container1 content-container my-4">
+  <div class="col-sm-3 mx-2 p-2">
+  <p><strong>1. Create your personal feedback URL. <a href="/profile/" title="New Account">Here</a></strong></p>
+  <p>People will write anonymous and honest opinions about you on that URL.</p>
+  </div>
+  <div class="col-sm-3 mx-2 p-2">
+  <p><strong>2.Share the URL through Instagram, Twitter, Facebook etc. </strong></p>
+  <p>Share the URL through Instagram, Twitter, Facebook etc, to recieve more feedbacks.</p>
+  </div>
+  <div class="col-sm-3 mx-2 p-2">
+  <p><strong>3. Read what people think about you.</strong></p>
+  <p>The feedback you receive is private - only you can see it. </p>
+  </div>
+  <div class="col-sm-3mx-2 p-2">
+  <p><strong>4. Publish your favorite feedbacks.</strong></p>
+  <p>Share your favourite messages on social medias! </p>
+  </div>
+  </div>
+  </div>
+
+  <div class="container-fluid bg-dark text-center text-light py-2">
+      <div class="icon1 ">
+         <a href="https://github.com/premkumar5951" class="text-light" target="_blank"> <div > 
+              <i class="fab fa-github fa-2x mx-1"></i>
+          </div></a>
+          <a href="https://www.linkedin.com/in/prem-kumar-0520711a7" class="text-light" target="_blank"><div> 
+              <i class="fab fa-linkedin-in fa-2x mx-1"></i>
+          </div></a>
+          <a href="https://instagram.com/_incredible_prem_?igshid=1n5e7a0bk5owt" target="_blank" class="text-light"><div> 
+              <i class="fab fa-instagram fa-2x mx-1" ></i>
+          </div></a>
+        
+      </div>
+      <div>
+          <p>Contact us at: <b>premofdbapatna@gmail.com</b></p>
+      </div>
+  </div>
+{% endblock body%}

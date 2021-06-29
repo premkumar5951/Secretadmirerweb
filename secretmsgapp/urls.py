@@ -11,7 +11,7 @@ urlpatterns = [
     path("logout/",views.logmeout,name="logout"),
     path("about/",views.aboutus,name="aboutus"),
     path("feedback/",views.feed,name="feed"),
-    path("user/810384<int:Id>095757/$msgs/",views.sendmsg,name="sendmsg"),
+    path("user/<str:slug>/810384<int:Id>095757/$msgs/",views.sendmsg,name="sendmsg"),
 
 ]
 

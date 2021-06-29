@@ -98,7 +98,7 @@ def logmeout(request):
     logout(request)
     return redirect('/')
 
-def sendmsg(request,Id):
+def sendmsg(request,slug,Id):
     
     users=User.objects.filter(id=Id)
     us=users[0]

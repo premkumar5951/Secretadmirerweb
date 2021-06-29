@@ -45,14 +45,16 @@ padding: 1em;
 </style>
 {%endblock css%}
 {%block body%}
-{%if user.is_staff %}
-{%if feed%}
 {%load static%}
-{%for i in feed%}
+
+{%if user.is_staff %}
 <div class="container">
-<div>
-    <h2 class="mx-2">Feedbacks({{len}}) <i class="fas fa-comment-dots"></i></h2>
-</div>
+    <div>
+        <h2 class="mx-2">Feedbacks({{len}}) <i class="fas fa-comment-dots"></i></h2>
+    </div>
+{%if feed%}
+{%for i in feed%}
+
 <div class="col-md-12 m-2 my-4" id="div{{i.id}}">
     <div class="h-100 p-4 text-white bg-dark rounded-3 blkmain">
       <p style="font-size: 15px;" id="msg{{i.id}}">{{i.feedtxt}}</p>
@@ -61,18 +63,17 @@ padding: 1em;
       </div>
     </div>
   </div>
+  
 {%endfor%}
+</div>
 {%else%}
 <div class="container">
-<div>
-    <h2 class="mx-2">Feedbacks({{len}}) <i class="fas fa-comment-dots"></i></h2>
-</div>
 <div class="feedimgbox">
     <img src="{%static 'images/svg.svg'%}" alt="" class="feedimg">
 </div>
 </div>
 {%endif%}
-</div>
+
 {%else %}
 <div class="container text-center">
 {%load widget_tweaks%}

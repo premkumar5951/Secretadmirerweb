@@ -326,7 +326,7 @@
         {% for i in msgs %}
         <div class="col-md-12 m-2 my-4" id="div{{i.id}}">
           <div class="h-100 p-5 text-white bg-dark rounded-3 blkmain">
-            <p style="font-size: 15px;" id="msg{{i.id}}">{{i.message}}</p>
+            <p class="mx-3" style="font-size: 15px;" id="msg{{i.id}}">{{i.message}}</p>
             <div class="crossme" id="cross{{i.id}}" onclick="cross(event)"  data-bs-toggle="modal"
             data-bs-target="#dltmsg"><i class="fas fa-trash mx-3" id="cross{{i.id}}" ></i></div>
             <div class="date">
